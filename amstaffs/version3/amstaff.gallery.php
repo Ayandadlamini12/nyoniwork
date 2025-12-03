@@ -208,8 +208,10 @@
         width: min(90vw, 1200px);
         max-height: 90vh;
         position: relative;
+        display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
         gap: 1rem;
     }
 
