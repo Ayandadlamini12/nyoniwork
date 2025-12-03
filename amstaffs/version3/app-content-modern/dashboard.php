@@ -3,6 +3,7 @@
 
     $user_name = $_SESSION['fullname'] ?? 'Admin User';
     $user_role = $_SESSION['userrole'] ?? 'Administrator';
+    $current_route = 'dashboard';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,10 +43,10 @@
             </div>
             <nav class="sidebar-nav">
                 <p class="nav-label">Overview</p>
-                <a href="#" class="nav-link active">
+                <a href="dashboard.php" class="nav-link <?php echo $current_route === 'dashboard' ? 'active' : ''; ?>">
                     <i class="ri-dashboard-line"></i><span>Dashboard</span>
                 </a>
-                <a href="../app-content/pages-manage.php" class="nav-link">
+                <a href="pages.php" class="nav-link <?php echo $current_route === 'pages' ? 'active' : ''; ?>">
                     <i class="ri-pages-line"></i><span>Manage Pages</span>
                 </a>
                 <a href="../app-content/quill.photos.manage.php" class="nav-link">
@@ -92,7 +93,7 @@
                             </div>
                             <div>
                                 <p class="label">Create Page</p>
-                                <a href="../app-content/pages-manage.php" class="stretched-link">Launch</a>
+                                <a href="pages.php" class="stretched-link">Launch</a>
                             </div>
                         </div>
                     </div>
