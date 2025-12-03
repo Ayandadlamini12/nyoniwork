@@ -182,7 +182,6 @@
     /* Lightbox/Modal Styles for Zoom */
     /* ============================================== */
     .lightbox-modal {
-        display: none; /* Hidden by default and toggled via JS */
         position: fixed;
         z-index: 1000; 
         inset: 0;
@@ -191,8 +190,18 @@
         overflow-y: auto;
         background-color: var(--lightbox-bg);
         padding: 2rem 1rem;
+        display: flex;
         align-items: center;
         justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .lightbox-modal.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
     }
 
     .lightbox-content {
@@ -380,26 +389,32 @@
         <div class="gallery-grid">
             
             <?php if (!empty($gallery_data)): ?>
-                <?php foreach ($gallery_data as $item): 
+                <?php foreach ($gallery_data as $item):
+                    $image_src_raw = $image_base_path . ($item['gallery_image'] ?? '');
+                    $title_raw = $item['gallery_title'] ?? '';
+                    $description_raw = $item['gallery_description'] ?? '';
 
-                    $image_src = $image_base_path . htmlspecialchars($item['gallery_image']);
-                    $fallback_text = htmlspecialchars($item['gallery_title']);
-                    $description_js_safe = $item['gallery_description']; // Already safe for JS
+                    $image_src_attr = htmlspecialchars($image_src_raw, ENT_QUOTES, 'UTF-8');
+                    $title_attr = htmlspecialchars($title_raw, ENT_QUOTES, 'UTF-8');
+                    $description_html = nl2br(htmlspecialchars($description_raw, ENT_QUOTES, 'UTF-8'));
 
+                    $image_src_js = json_encode($image_src_raw, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+                    $title_js = json_encode($title_raw, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+                    $description_js = json_encode($description_raw, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
                 ?>
 
                 <!-- GALLERY CARD ITEM START -->
                 <div class="gallery-item">
                     <!-- Added onclick handler to the gallery-card to trigger the lightbox -->
                     <div class="gallery-card" 
-                         onclick="openLightbox('<?php echo $image_src; ?>', '<?php echo $fallback_text; ?>', '<?php echo $description_js_safe; ?>')">
+                         onclick="openLightbox(event, <?php echo $image_src_js; ?>, <?php echo $title_js; ?>, <?php echo $description_js; ?>)">
                         
                         <!-- Image Container -->
                         <div class="gallery-image-container">
                             
                             <img 
-                                src="<?php echo $image_src; ?>" 
-                                alt="<?php echo $fallback_text; ?>" 
+                                src="<?php echo $image_src_attr; ?>" 
+                                alt="<?php echo $title_attr; ?>" 
                                 class="gallery-image"
                                 onerror="this.onerror=null; this.src='https://placehold.co/600x450/e0e0e0/555555?text=Image+Not+Found'"
                             >
@@ -408,10 +423,8 @@
                         <!-- Content Block -->
                         <div class="gallery-content">
                             <div>
-                                <h2 class="gallery-title text-dark"><?php echo $fallback_text; ?></h2>
-                                <p class="gallery-description">
-                                    <?php echo nl2br(htmlspecialchars($item['gallery_description'])); ?>
-                                </p>
+                                <h2 class="gallery-title text-dark"><?php echo $title_attr; ?></h2>
+                                <p class="gallery-description"><?php echo $description_html; ?></p>
                             </div>
                         </div>
                     </div>
@@ -460,25 +473,45 @@
      * @param {string} title - The image title.
      * @param {string} description - The image description.
      */
-    function openLightbox(src, title, description) {
-        // Stop event propagation if called from within the card to prevent immediate closing
-        if (event) {
-            event.stopPropagation();
+    function openLightbox(clickEvent, src, title, description) {
+        if (clickEvent) {
+            clickEvent.stopPropagation();
         }
-        
+
         const modal = document.getElementById('lightbox-modal');
         const img = document.getElementById('lightbox-image');
         const titleEl = document.getElementById('caption-title');
         const descEl = document.getElementById('caption-description');
 
-        if (modal && img) {
+        if (modal && img && titleEl && descEl) {
             img.src = src;
-            titleEl.innerHTML = title;
-            // The description is safe for insertion into innerHTML because it was sanitized in PHP
-            descEl.innerHTML = description; 
-            
-            modal.style.display = 'flex';
+            titleEl.textContent = title;
+            descEl.textContent = description;
+
+            modal.classList.add('is-visible');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+    }
+
+    function hideLightbox() {
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-image');
+        const titleEl = document.getElementById('caption-title');
+        const descEl = document.getElementById('caption-description');
+
+        if (modal && modal.classList.contains('is-visible')) {
+            modal.classList.remove('is-visible');
+            document.body.style.overflow = '';
+        }
+
+        if (img) {
+            img.removeAttribute('src');
+        }
+        if (titleEl) {
+            titleEl.textContent = '';
+        }
+        if (descEl) {
+            descEl.textContent = '';
         }
     }
 
@@ -490,19 +523,25 @@
     function closeLightbox(event) {
         const modal = document.getElementById('lightbox-modal');
         
-        // Check if the click was on the background or the close button (class 'lightbox-close')
-        if (event.target === modal || event.target.classList.contains('lightbox-close')) {
-            modal.style.display = 'none';
-            document.body.style.overflow = ''; // Restore background scrolling
+        if (!modal) {
+            return;
+        }
+
+        const clickedCloseButton = event && event.target.classList.contains('lightbox-close');
+        const clickedBackdrop = event && event.target === modal;
+
+        if (clickedBackdrop || clickedCloseButton) {
+            hideLightbox();
         }
     }
 
     // Optional: Close lightbox on ESC key press
     document.addEventListener('keydown', function(event) {
-        const modal = document.getElementById('lightbox-modal');
-        if (event.key === 'Escape' && modal.style.display === 'flex') {
-            modal.style.display = 'none';
-            document.body.style.overflow = ''; // Restore background scrolling
+        if (event.key === 'Escape') {
+            const modal = document.getElementById('lightbox-modal');
+            if (modal && modal.classList.contains('is-visible')) {
+                hideLightbox();
+            }
         }
     });
 
