@@ -1096,6 +1096,10 @@
     <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/pickers/pickadate/pickadate.css">
     <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/toggle/switchery.min.css">
     <!-- END: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/quill/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/quill/monokai-sublime.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/quill/quill.snow.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/quill/quill.bubble.css">
 
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="app-assets/css/bootstrap.css">
@@ -1297,6 +1301,9 @@
 
                                             <!-- TESTIMONIALS --> 
                                             <?php include 'quill.testimonials.php' ?>
+
+                                            <!-- BLOG --> 
+                                            <?php include 'quill.blog.php' ?>
                                         </div>
                                     </div>
                                 </div>
@@ -1334,8 +1341,19 @@
     <script src="app-assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
 
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="app-assets/vendors/js/forms/quill/highlight.min.js"></script>
+    <script src="app-assets/vendors/js/forms/quill/quill.js"></script>
+    <script src="app-assets/vendors/js/forms/quill/katex.min.js"></script>
+    <!-- END: Page Vendor JS-->
+
+
     <!-- BEGIN: Page JS-->
     <script src="app-assets/js/scripts/pages/account-setting.js"></script>
+    <!-- END: Page JS-->
+
+     <!-- BEGIN: Page JS-->
+    <script src="app-assets/js/scripts/forms/quill/form-text-editor.js"></script>
     <!-- END: Page JS-->
 
     <?php unset($_SESSION['metadata']); unset($_SESSION['wrong_metadata']); ?>
