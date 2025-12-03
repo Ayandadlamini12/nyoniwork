@@ -182,7 +182,7 @@
     /* Lightbox/Modal Styles for Zoom */
     /* ============================================== */
     .lightbox-modal {
-        display: none; /* Hidden by default */
+        display: none; /* Hidden by default and toggled via JS */
         position: fixed;
         z-index: 1000; 
         inset: 0;
@@ -191,7 +191,6 @@
         overflow-y: auto;
         background-color: var(--lightbox-bg);
         padding: 2rem 1rem;
-        display: flex;
         align-items: center;
         justify-content: center;
     }
@@ -478,7 +477,7 @@
             // The description is safe for insertion into innerHTML because it was sanitized in PHP
             descEl.innerHTML = description; 
             
-            modal.style.display = 'block';
+            modal.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
     }
@@ -501,7 +500,7 @@
     // Optional: Close lightbox on ESC key press
     document.addEventListener('keydown', function(event) {
         const modal = document.getElementById('lightbox-modal');
-        if (event.key === 'Escape' && modal.style.display === 'block') {
+        if (event.key === 'Escape' && modal.style.display === 'flex') {
             modal.style.display = 'none';
             document.body.style.overflow = ''; // Restore background scrolling
         }
