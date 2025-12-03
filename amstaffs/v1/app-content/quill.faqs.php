@@ -91,38 +91,39 @@
                         }
                         
                         // Check if any FAQs were found
-                        if (count($faqs) == 0) {
-                            echo "<div class='text-center p-5 border rounded'><p class='lead text-muted'>No Frequently Asked Questions have been added yet.</p></div>";
-                            // Stop execution if no data is found
-                            return; 
-                        }
-                        
                         $counter = 0;
+                        $has_faqs = count($faqs) > 0;
                     ?>
 
-                    <!-- Outer Accordion Wrapper -->
-                    <div id="accordionWrap1" role="tablist" aria-multiselectable="true">
-                        <?php foreach ($faqs as $item): 
-                            $faq_id = htmlspecialchars($item['id']);
-                            $question = htmlspecialchars($item['faq_question']);
-                            $answer_display = nl2br(htmlspecialchars($item['faq_answer'])); // Use nl2br for displaying line breaks
-                            $is_published = (int)$item['faq_is_published'];
-                            
-                            $heading_id = 'faqHeading' . $faq_id;
-                            $accordion_id = 'faqAccordion' . $faq_id;
-                            $accordion_link_text = $question;
-                            
-                            // Control initial state of the first item
-                            $is_first_item = ($counter === 0);
-                            $header_class = 'card-header d-flex justify-content-between align-items-center cursor-pointer';
-                            $collapse_class = 'card-collapse collapse ' . ($is_first_item ? 'show' : '');
-                            $aria_expanded = $is_first_item ? 'true' : 'false';
-                    
-                            // Styling for published/unpublished status
-                            $status_color = $is_published ? 'text-success' : 'text-danger';
-                            $status_icon = $is_published ? 'feather icon-check-circle' : 'feather icon-slash';
-                            $status_label = $is_published ? 'Published' : 'Draft';
-                        ?>
+                    <?php if (!$has_faqs): ?>
+                        <div class="text-center p-5 border rounded bg-light">
+                            <p class="lead text-muted mb-1">No Frequently Asked Questions have been added yet.</p>
+                            <p class="text-muted mb-0">Use the “Add New FAQ” button above to create your first entry.</p>
+                        </div>
+                    <?php else: ?>
+                        <!-- Outer Accordion Wrapper -->
+                        <div id="accordionWrap1" role="tablist" aria-multiselectable="true">
+                            <?php foreach ($faqs as $item): 
+                                $faq_id = htmlspecialchars($item['id']);
+                                $question = htmlspecialchars($item['faq_question']);
+                                $answer_display = nl2br(htmlspecialchars($item['faq_answer'])); // Use nl2br for displaying line breaks
+                                $is_published = (int)$item['faq_is_published'];
+                                
+                                $heading_id = 'faqHeading' . $faq_id;
+                                $accordion_id = 'faqAccordion' . $faq_id;
+                                $accordion_link_text = $question;
+                                
+                                // Control initial state of the first item
+                                $is_first_item = ($counter === 0);
+                                $header_class = 'card-header d-flex justify-content-between align-items-center cursor-pointer';
+                                $collapse_class = 'card-collapse collapse ' . ($is_first_item ? 'show' : '');
+                                $aria_expanded = $is_first_item ? 'true' : 'false';
+                        
+                                // Styling for published/unpublished status
+                                $status_color = $is_published ? 'text-success' : 'text-danger';
+                                $status_icon = $is_published ? 'feather icon-check-circle' : 'feather icon-slash';
+                                $status_label = $is_published ? 'Published' : 'Draft';
+                            ?>
                             
                             <!-- Accordion Item Start -->
                             <div class="card accordion collapse-icon panel mb-1 box-shadow-0 border rounded-lg">
@@ -263,9 +264,10 @@
             </div>
         </div>
 
-    <?php $counter++; endforeach; ?>
-</div>
-<!-- End Outer Accordion Wrapper -->
+        <?php $counter++; endforeach; ?>
+    </div>
+    <!-- End Outer Accordion Wrapper -->
+<?php endif; ?>
                             
                 </div>
             </div>
@@ -276,4 +278,4 @@
 
 
 
-                                            </div>
+    </div>
