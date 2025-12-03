@@ -1,0 +1,290 @@
+:root {
+    --bg-soft: #f6f4ee;
+    --bg-surface: #ffffff;
+    --text-dark: #0f172a;
+    --text-muted: #7a8495;
+    --accent: #e3dc19;
+    --accent-dark: #c7b815;
+    --sidebar-bg: #0f1a21;
+    --sidebar-bg-dark: #0c141a;
+    --border-color: rgba(15, 23, 42, 0.08);
+    --shadow-strong: 0 30px 60px rgba(5, 10, 20, 0.25);
+    --shadow-soft: 0 18px 35px rgba(5, 10, 20, 0.13);
+}
+
+[data-theme="dark"] {
+    --bg-soft: #050911;
+    --bg-surface: #111b26;
+    --text-dark: #f3f5f8;
+    --text-muted: #9aa5bc;
+    --accent: #f4e756;
+    --accent-dark: #c5b210;
+    --sidebar-bg: #05070b;
+    --sidebar-bg-dark: #020204;
+    --border-color: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", "Space Grotesk", sans-serif;
+    background: var(--bg-soft);
+    color: var(--text-dark);
+}
+
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    background: var(--bg-soft);
+}
+
+.app-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: radial-gradient(circle at top, rgba(227, 220, 25, 0.12), transparent 55%), var(--sidebar-bg);
+    color: #fff;
+    padding: 1.8rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease, transform 0.4s ease;
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+.app-sidebar.collapsed {
+    width: 82px;
+}
+
+.sidebar-brand {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 1.2rem;
+}
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: rgba(227, 220, 25, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+.brand-title {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 18px;
+    padding: 0.8rem 1rem;
+}
+.sidebar-user .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    background: rgba(227, 220, 25, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.nav-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 1.8rem 0 0.4rem;
+}
+.sidebar-nav {
+    flex: 1;
+}
+.sidebar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    padding: 0.6rem 0.9rem;
+    border-radius: 14px;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+.sidebar-nav .nav-link:hover,
+.sidebar-nav .nav-link.active {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+.app-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-dark);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background 0.2s ease;
+}
+.icon-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+.btn.btn-primary {
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(120deg, var(--accent), var(--accent-dark));
+    box-shadow: var(--shadow-soft);
+    font-weight: 600;
+}
+
+.app-main {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.quick-card {
+    background: var(--bg-surface);
+    border-radius: 18px;
+    padding: 1.25rem 1.4rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.quick-card .icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(227, 220, 25, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #b69c0c;
+}
+.quick-card .label {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+.quick-card a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.card {
+    border: none;
+    border-radius: 22px;
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-soft);
+}
+
+.timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.timeline li {
+    display: flex;
+    gap: 0.75rem;
+}
+.timeline .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--accent);
+    margin-top: 0.4rem;
+}
+.timeline .title {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+.timeline small {
+    color: var(--text-muted);
+}
+
+.list-group-item {
+    background: transparent;
+    border-color: var(--border-color);
+}
+
+.app-footer {
+    padding: 1.2rem 2rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+.app-footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.sidebar-collapsed .app-sidebar {
+    transform: translateX(-100%);
+}
+.sidebar-collapsed .app-sidebar.collapsed {
+    transform: translateX(0);
+}
+
+@media (max-width: 1024px) {
+    .app-sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        z-index: 50;
+        transform: translateX(-100%);
+    }
+    .app-sidebar.revealed {
+        transform: translateX(0);
+    }
+    .app-content {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-header, .app-footer {
+        padding: 1rem;
+    }
+    .app-main {
+        padding: 1.2rem;
+    }
+}
