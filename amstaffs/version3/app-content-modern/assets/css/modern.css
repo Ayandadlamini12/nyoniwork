@@ -210,6 +210,20 @@ body {
     box-shadow: var(--shadow-soft);
 }
 
+.chart-area {
+    position: relative;
+    min-height: 280px;
+}
+.chart-area canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+.chart-area-sm {
+    min-height: 220px;
+}
+
 .timeline {
     list-style: none;
     padding: 0;

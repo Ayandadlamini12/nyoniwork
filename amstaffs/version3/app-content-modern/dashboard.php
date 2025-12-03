@@ -146,7 +146,9 @@
                                         <option>Year to date</option>
                                     </select>
                                 </div>
-                                <canvas id="performanceChart" height="110"></canvas>
+                                <div class="chart-area">
+                                    <canvas id="performanceChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,7 +196,9 @@
                                         <h4 class="mb-0">Channel distribution</h4>
                                     </div>
                                 </div>
-                                <canvas id="trafficChart" height="160"></canvas>
+                                <div class="chart-area chart-area-sm">
+                                    <canvas id="trafficChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
