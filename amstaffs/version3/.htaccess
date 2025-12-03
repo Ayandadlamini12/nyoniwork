@@ -1,0 +1,11 @@
+RewriteEngine on 
+RewriteRule ^contact-us  amstaff.contact.php [NC,L]
+RewriteRule ^about-us  amstaff.about.php [NC,L] 
+RewriteRule ^our-services  amstaff.services.php [NC,L] 
+RewriteRule ^breed  amstaff.breed.php [NC,L]
+RewriteRule ^info-breed  amstaff.info.php [NC,L]
+RewriteRule ^gallery  amstaff.gallery.php [NC,L]
+RewriteRule ^blog  amstaff.blog.php [NC,L]
+RewriteRule ^read-blog  amstaff.read.php [NC,L]
+RewriteRule ^testimonials  amstaff.testimonials.php [NC,L]
+RewriteRule ^documents  amstaff.documents.php [NC,L]
