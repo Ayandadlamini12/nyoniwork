@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteRule ^preview-cv  blade.resume.php [NC,L]
+RewriteRule ^contact-me  blade.contact.php [NC,L]
+RewriteRule ^about-me  blade.about.php [NC,L]

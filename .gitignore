@@ -1,0 +1,8 @@
+.env
+*.env
+config-local.php
+*.log
+node_modules/
+vendor/
+*.zip
+

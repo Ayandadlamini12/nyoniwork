@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^appointment  2025.appointment.php [NC,L]
