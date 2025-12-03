@@ -407,7 +407,7 @@
                 <div class="gallery-item">
                     <!-- Added onclick handler to the gallery-card to trigger the lightbox -->
                     <div class="gallery-card" 
-                         onclick="openLightbox(event, <?php echo $image_src_js; ?>, <?php echo $title_js; ?>, <?php echo $description_js; ?>)">
+                         onclick='openLightbox(event, <?php echo $image_src_js; ?>, <?php echo $title_js; ?>, <?php echo $description_js; ?>)'>
                         
                         <!-- Image Container -->
                         <div class="gallery-image-container">
