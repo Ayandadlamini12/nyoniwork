@@ -6,6 +6,17 @@
 :root {
     --helentor-primary: #e3dc19;
     --helentor-primary-dark: #c5b915;
+    --helentor-primary-light: #f8f2a8;
+    --helentor-warning-mid: #f1b02b;
+    --helentor-warning-light: #ffe1a7;
+    --helentor-success-mid: #5f8450;
+    --helentor-success-light: #c0d8ad;
+    --helentor-info-mid: #405a76;
+    --helentor-info-light: #a9bed3;
+    --helentor-danger-mid: #9b3b2c;
+    --helentor-danger-light: #f1b09e;
+    --helentor-secondary-mid: #1d2734;
+    --helentor-secondary-light: #2c3a4b;
     --helentor-dark: #0f1a21;
     --helentor-dark-soft: #1c2836;
     --helentor-deep: #071018;
@@ -316,6 +327,103 @@ body.vertical-layout {
     background: var(--helentor-primary);
     border-color: var(--helentor-primary);
     color: var(--helentor-dark);
+}
+
+/* ---------- Gradient helpers (override Stack defaults) ---------- */
+.bg-gradient-x-primary,
+.bg-gradient-y-primary,
+.bg-gradient-directional-primary,
+.bg-gradient-x2-primary,
+.bg-gradient-y2-primary,
+.bg-gradient-radial-primary,
+.bg-gradient-striped-primary {
+    background-image: linear-gradient(120deg, var(--helentor-primary-light) 0%, var(--helentor-primary) 45%, var(--helentor-primary-dark) 100%) !important;
+    background-repeat: no-repeat !important;
+    color: var(--helentor-dark) !important;
+}
+.bg-gradient-striped-primary {
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.35) 20%, transparent 20%, transparent 40%, rgba(255, 255, 255, 0.35) 40%, rgba(255, 255, 255, 0.35) 60%, transparent 60%, transparent 80%, rgba(255, 255, 255, 0.35) 80%) !important;
+    background-color: var(--helentor-primary) !important;
+}
+
+.bg-gradient-x-warning,
+.bg-gradient-y-warning,
+.bg-gradient-directional-warning,
+.bg-gradient-x2-warning,
+.bg-gradient-y2-warning,
+.bg-gradient-radial-warning,
+.bg-gradient-striped-warning {
+    background-image: linear-gradient(120deg, var(--helentor-warning-light) 0%, var(--helentor-warning-mid) 55%, #d48914 100%) !important;
+    background-repeat: no-repeat !important;
+    color: #3b1f00 !important;
+}
+.bg-gradient-striped-warning {
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 75%, transparent 75%, transparent) !important;
+    background-color: var(--helentor-warning-mid) !important;
+}
+
+.bg-gradient-x-success,
+.bg-gradient-y-success,
+.bg-gradient-directional-success,
+.bg-gradient-x2-success,
+.bg-gradient-y2-success,
+.bg-gradient-radial-success,
+.bg-gradient-striped-success {
+    background-image: linear-gradient(120deg, var(--helentor-success-light) 0%, var(--helentor-success-mid) 55%, #3d5833 100%) !important;
+    background-repeat: no-repeat !important;
+    color: #f6fff0 !important;
+}
+.bg-gradient-striped-success {
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.28) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.28) 50%, rgba(255, 255, 255, 0.28) 75%, transparent 75%, transparent) !important;
+    background-color: var(--helentor-success-mid) !important;
+}
+
+.bg-gradient-x-info,
+.bg-gradient-y-info,
+.bg-gradient-directional-info,
+.bg-gradient-x2-info,
+.bg-gradient-y2-info,
+.bg-gradient-radial-info,
+.bg-gradient-striped-info {
+    background-image: linear-gradient(120deg, var(--helentor-info-light) 0%, var(--helentor-info-mid) 60%, #27394c 100%) !important;
+    background-repeat: no-repeat !important;
+    color: #f4f8fc !important;
+}
+.bg-gradient-striped-info {
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent) !important;
+    background-color: var(--helentor-info-mid) !important;
+}
+
+.bg-gradient-x-danger,
+.bg-gradient-y-danger,
+.bg-gradient-directional-danger,
+.bg-gradient-x2-danger,
+.bg-gradient-y2-danger,
+.bg-gradient-radial-danger,
+.bg-gradient-striped-danger {
+    background-image: linear-gradient(120deg, var(--helentor-danger-light) 0%, var(--helentor-danger-mid) 60%, #611d11 100%) !important;
+    background-repeat: no-repeat !important;
+    color: #fff6f4 !important;
+}
+.bg-gradient-striped-danger {
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent) !important;
+    background-color: var(--helentor-danger-mid) !important;
+}
+
+.bg-gradient-x-secondary,
+.bg-gradient-y-secondary,
+.bg-gradient-directional-secondary,
+.bg-gradient-x2-secondary,
+.bg-gradient-y2-secondary,
+.bg-gradient-radial-secondary,
+.bg-gradient-striped-secondary {
+    background-image: linear-gradient(120deg, var(--helentor-secondary-light) 0%, var(--helentor-secondary-mid) 70%, var(--helentor-dark) 100%) !important;
+    background-repeat: no-repeat !important;
+    color: #fdfdfd !important;
+}
+.bg-gradient-striped-secondary {
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.18) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.18) 50%, rgba(255, 255, 255, 0.18) 75%, transparent 75%, transparent) !important;
+    background-color: var(--helentor-secondary-mid) !important;
 }
 
 /* subtle custom scrollbar */
