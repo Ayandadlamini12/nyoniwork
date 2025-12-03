@@ -248,6 +248,39 @@
                         </div>
                     </div>
                 </section>
+
+                <section class="legacy-panel card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center mb-3 gap-3">
+                            <div>
+                                <p class="text-uppercase text-muted small mb-1">Connected workspace</p>
+                                <h4 class="mb-0">Manage live content</h4>
+                                <small class="text-muted">Existing PHP modules render below without leaving the new interface.</small>
+                            </div>
+                            <div class="legacy-toolbar">
+                                <button class="btn btn-light btn-sm js-load-module active" data-module="pages-manage">
+                                    <i class="ri-pages-line me-1"></i> Pages
+                                </button>
+                                <button class="btn btn-light btn-sm js-load-module" data-module="quill.photos.manage">
+                                    <i class="ri-layout-column-line me-1"></i> Content
+                                </button>
+                                <button class="btn btn-light btn-sm js-load-module" data-module="users-manage">
+                                    <i class="ri-group-line me-1"></i> Users
+                                </button>
+                                <button class="btn btn-light btn-sm js-load-module" data-module="account-setting">
+                                    <i class="ri-user-settings-line me-1"></i> Profile
+                                </button>
+                            </div>
+                        </div>
+                        <div class="legacy-frame-wrapper">
+                            <iframe id="legacyFrame" src="../app-content/pages-manage.php" title="Helentor legacy module"></iframe>
+                            <div class="legacy-frame-overlay" id="legacyLoader">
+                                <div class="spinner-border text-warning" role="status"></div>
+                                <p class="mt-2 mb-0 text-muted small">Loading module...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </main>
 
             <footer class="app-footer">

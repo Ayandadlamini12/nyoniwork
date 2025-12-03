@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('appSidebar');
     const sidebarToggle = document.getElementById('sidebarToggle');
     const modeToggle = document.getElementById('modeToggle');
+    const legacyFrame = document.getElementById('legacyFrame');
+    const legacyLoader = document.getElementById('legacyLoader');
+    const moduleButtons = document.querySelectorAll('.js-load-module');
 
     // Handle sidebar toggle (mobile + desktop collapse)
     sidebarToggle?.addEventListener('click', () => {
@@ -24,6 +27,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (storedTheme) {
         body.setAttribute('data-theme', storedTheme);
         updateModeIcon(storedTheme);
+    }
+
+    // Legacy module loader
+    moduleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const moduleName = btn.getAttribute('data-module');
+            if (!moduleName || !legacyFrame) return;
+
+            moduleButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            showLegacyLoader(true);
+
+            const targetUrl = `../app-content/${moduleName}.php`;
+            legacyFrame.setAttribute('src', targetUrl);
+        });
+    });
+
+    if (legacyFrame) {
+        legacyFrame.addEventListener('load', () => showLegacyLoader(false));
+    }
+
+    function showLegacyLoader(show) {
+        if (!legacyLoader) return;
+        if (show) {
+            legacyLoader.classList.remove('hidden');
+        } else {
+            legacyLoader.classList.add('hidden');
+        }
     }
 
     modeToggle?.addEventListener('click', () => {
