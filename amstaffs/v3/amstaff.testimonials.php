@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Our Services . Helentor Amstaffs</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Favicons -->
+        <link href="img/favicon.ico" rel="icon">
+        <link href="img/favicon.ico" rel="apple-touch-icon">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link rel="stylesheet" href="lib/animate/animate.min.css"/>
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid header-top">
+            <div class="nav-shaps-2"></div>
+            <div class="container d-flex align-items-center">
+                <div class="d-flex align-items-center h-100">
+                    <a href="#" class="navbar-brand" style="height: 125px;"> 
+                        <img src="img/logo.png" alt="Logo">
+                    </a>
+                </div>
+                <div class="w-100 h-100">
+                    <?php include 'amstaff.top.bar.php';?>
+                    <div class="nav-bar px-0 py-lg-0" style="height: 80px;">
+                        <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-lg-end">
+                            <a href="#" class="navbar-brand-2"> 
+                                 <img src="img/logo.png" alt="Logo" style="width: 70%;">
+                            </a> 
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                                <span class="fa fa-bars"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarCollapse">
+                                <div class="navbar-nav mx-0 mx-lg-auto">
+                                    <a href="./" class="nav-item nav-link">Home</a>
+                                    <a href="about-us" class="nav-item nav-link">About</a>
+                                    <a href="our-services" class="nav-item nav-link">Services</a>
+                                    <a href="breed" class="nav-item nav-link">Breed</a>
+                                    <a href="gallery" class="nav-item nav-link">Gallery</a>
+                                    <a href="blog" class="nav-item nav-link">Blog</a>
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="nav-link active" data-bs-toggle="dropdown">
+                                            <span class="dropdown-toggle">Resources</span>
+                                        </a>
+                                        <div class="dropdown-menu"> 
+                                            <a href="javascript:void(0);" class="dropdown-item">FAQs</a>
+                                            <a href="documents" class="dropdown-item">Documents</a>
+                                            <a href="testimonials" class="dropdown-item">Testimonial</a>
+                                            <a href="javascript:void(0);" class="dropdown-item">Privacy Policy</a>
+                                            <a href="javascript:void(0);" class="dropdown-item">Terms & Conditions</a>
+                                        </div>
+                                    </div>
+                                    <a href="contact-us" class="nav-item nav-link">Contact</a>
+                                    <div class="nav-btn ps-3">
+                                        <!--<button class="btn-search btn btn-primary btn-md-square mt-2 mt-lg-0 mb-4 mb-lg-0 flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button> -->
+                                        <a href="#services" class="btn btn-primary py-2 px-4 ms-0 ms-lg-3"> <span>Get Started</span></a>
+                                    </div>
+                                    <div class="nav-shaps-1"></div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+        <!-- Modal Search Start -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center bg-primary">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="btn bg-light border nput-group-text p-3"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Search End -->
+
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Testimonials</h4>
+                   
+            </div>
+        </div>
+        <!-- Header End -->
+
+     <!-- Testimonial Start -->
+        <div class="container-fluid testimonial bg-dark py-5" style="margin-bottom: 90px;">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                    <h4 class="text-primary">Testimonial</h4>
+                    <h1 class="display-4 text-white">What Our Customers Are Saying</h1>
+                </div>
+                <div class="testimonial-carousel owl-carousel wow fadeInUp" data-wow-delay="0.2s">
+
+                    <?php
+ 
+                        $sql_testimonials = "SELECT * FROM quill_testimonials ORDER BY testimonial_created_at DESC";
+                        $result_testimonials = $conn->query($sql_testimonials);
+                        
+                        // Check for query success
+                        if ($result_testimonials === false) {
+                            // Output a message if the database query fails
+                            echo "<p class='text-danger text-center'>Error fetching testimonials: " . $conn->error . "</p>";
+                        } else {
+                            // 2. Check if any testimonials were found
+                            if ($result_testimonials->num_rows > 0) {
+                                
+                                // 3. Loop through the fetched results and generate the HTML block for each testimonial
+                                while($testimonial = $result_testimonials->fetch_assoc()) {
+                                    
+                                    // Sanitize and retrieve data
+                                    $t_content = htmlspecialchars($testimonial['testimonial_content']);
+                                    $t_full_name = htmlspecialchars($testimonial['testimonial_full_name']);
+                                    $t_profession = htmlspecialchars($testimonial['testimonial_profession']);
+                                    $t_rating = (int)$testimonial['testimonial_rating'];
+                                    $t_image_path = htmlspecialchars($testimonial['testimonial_image']);
+                                    
+                                    // Determine image source
+                                    // Note: The path is retrieved from the DB (e.g., 'assets/img/uploads/...'). 
+                                    // If your front-end page is in a different folder, you may need to adjust the path prefix (e.g., prepend '../').
+                                    $image_src = !empty($t_image_path) 
+                                               ? $t_image_path 
+                                               : 'https://placehold.co/100x100/343a40/ffffff?text=U'; // Placeholder if no image (U for User)
+                        
+                                    // Check if it's the simple placeholder for conditional styling
+                                    $is_placeholder = strpos($image_src, 'placehold.co') !== false;
+                        ?>
+                        
+                        <div class="testimonial-item mx-auto" style="max-width: 900px;">
+                            <span class="fa fa-quote-left fa-3x quote-icon"></span>
+                            
+                            <div class="testimonial-img mb-4">
+                                <!-- Image display -->
+                                <img src="assets/uploads/testimonials/<?php echo $image_src; ?>"  class="img-fluid rounded-circle"  alt="<?php echo $t_full_name; ?>'s Photo" style="width: 100px; height: 100px; object-fit: cover; <?php echo $is_placeholder ? 'background-color: #343a40;' : ''; ?>"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/100x100/343a40/ffffff?text=U';"
+                                >
+                            </div>
+                            
+                            <p class="fs-4 text-white mb-4">
+                                <?php echo $t_content; ?>
+                            </p>
+                            
+                            <div class="d-block">
+                                <h4 class="text-white"><?php echo $t_full_name; ?></h4>
+                                <p class="m-0 pb-3"><?php echo $t_profession; ?></p>
+                                
+                                <!-- Star Rating Logic -->
+                                <div class="d-flex">
+                                    <?php 
+                                    // Loop 5 times for 5 stars
+                                    for ($i = 1; $i <= 5; $i++): 
+                                        // Use 'fas fa-star text-primary' for filled, and 'fas fa-star text-white' for empty (to match template style)
+                                        $star_class = ($i <= $t_rating) ? 'fas fa-star text-primary' : 'fas fa-star text-white';
+                                    ?>
+                                        <i class="<?php echo $star_class; ?>"></i>
+                                    <?php endfor; ?>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <?php
+                                } // End of while loop
+                            } else {
+                                // Message if no testimonials are in the database
+                                echo "<p class='text-center text-white'>No testimonials available yet.</p>";
+                            }
+                        }
+                        ?> 
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End --> 
+
+    <?php include 'amstaff.footer.php'; ?>

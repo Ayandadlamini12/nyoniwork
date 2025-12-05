@@ -170,6 +170,175 @@
         exit();
     }
 
+    //UPDATE LISTING IMAGE INFO - LISTING PAGE
+    if (isset($_POST['ThisUpdateListing']) && $_POST['ThisUpdateListing'] == 1) {
+
+        $content_id = $_POST['content_id'];
+        $content_title = $_POST['content_title'];
+        $content_description = $_POST['content_description'];
+
+        $sql = "UPDATE quill_listing SET gallery_title = ?, gallery_description = ? WHERE id = ?";
+    
+        $stmt = mysqli_prepare($conn, $sql);
+            if ($stmt === false) {
+            error_log("Failed to prepare statement: " . mysqli_error($conn));
+            $_SESSION['metadata'] = "Error preparing update. Please try again.";
+            header("Location: quill-photos");
+            exit();
+        }
+     
+        mysqli_stmt_bind_param($stmt, "ssi", $content_title, $content_description, $content_id);
+    
+        // 5. Execute the statement
+        $result = mysqli_stmt_execute($stmt);
+    
+        // 6. Check for execution success
+        if ($result) {
+            $_SESSION['metadata'] = "Image Info Updated Successfully!";
+            header("Location: quill-photos");
+            exit();
+        } else {
+            // Log the error and give a generic message to the user
+            error_log("Failed to execute statement: " . mysqli_stmt_error($stmt));
+            $_SESSION['metadata'] = "Error updating image info. Please try again.";
+            header("Location: quill-photos");
+            exit();
+        }
+     
+        mysqli_stmt_close($stmt);
+     
+        header("Location: quill-photos");
+        exit();
+    }
+
+    //DELETE LISTING IMAGE INFO - GALLER PAGE
+    if (isset($_POST['deleteImageListing']) && $_POST['deleteImageListing'] == 1) {
+     
+        // Assume $conn is your valid mysqli connection object
+        $content_id = $_POST['content_id'];
+        $content_value = $_POST['content_value']; // IMAGE NAME
+
+
+        $safe_file_name = basename($content_value);
+        $full_file_path = '../assets/uploads/listing/' . $safe_file_name;
+    
+        if ($content_value && file_exists($full_file_path)) {
+            // Attempt to delete the file
+            if (unlink($full_file_path)) {
+                
+                // --- STEP 3: DELETE THE DATABASE RECORD ---
+                $delete_sql = "DELETE FROM quill_listing WHERE id = ?";
+                $stmt_delete = mysqli_prepare($conn, $delete_sql);
+            
+                if ($stmt_delete === false) {
+                    error_log("Failed to prepare delete statement: " . mysqli_error($conn));
+                    $_SESSION['metadata'] = "A critical server error occurred (Database delete preparation).";
+                    header("Location: quill-photos");
+                    exit();
+                }
+            
+                // Bind the ID parameter (i for integer)
+                mysqli_stmt_bind_param($stmt_delete, "i", $content_id);
+            
+                if (mysqli_stmt_execute($stmt_delete)) {
+                    // Database deletion successful
+                    $_SESSION['metadata'] = "Image Record Deleted Successfully!";
+                    header("Location: quill-photos");
+                    exit();
+                } else {
+                    // Database deletion failed
+                    error_log("Failed to execute delete statement: " . mysqli_stmt_error($stmt_delete));
+                    $_SESSION['metadata'] = "Error deleting database record. Please check logs.";
+                    header("Location: quill-photos");
+                    exit();
+                }
+            
+                mysqli_stmt_close($stmt_delete);  
+
+            } else {
+                // File deletion failed (permissions issue, etc.)
+                $_SESSION['metadata'] = "Warning: Failed to delete physical file on server. ";
+                header("Location: quill-photos");
+                exit(); 
+            }
+        } else { 
+            
+            $_SESSION['metadata'] = "Warning: Image Cannot Be Found on physical server. ";
+            header("Location: quill-photos");
+            exit();
+        }
+    
+    }
+
+    //ADD LISTING IMAGE INFO - GALLERY PAGE
+    if (isset($_POST['addNewImageListing']) && $_POST['addNewImageListing'] == 1) {
+
+        $content_title = $_POST['gallery_title'] ?? '';
+        $content_description = $_POST['gallery_description'] ?? '';
+    
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $output = substr(str_shuffle($permitted_chars), 0, 8);
+
+        // Name of the uploaded file element is 'content_value'
+        $original_filename = basename($_FILES["gallery_image"]["name"] ?? '');
+        $tempname = $_FILES["gallery_image"]["tmp_name"] ?? '';
+    
+        // Check if a file was actually uploaded and is valid
+        if (empty($original_filename) || !is_uploaded_file($tempname)) {
+            $_SESSION['metadata'] = "No file uploaded or upload failed.";
+            header("Location: quill-photos");
+            exit();
+        }
+        
+        $newname = 'li_'.$output . '_' . $original_filename;
+        
+        // Ensure this folder path is correct relative to the execution script
+        // $folder will contain the full server path where the file will be saved
+        $folder = "../assets/uploads/listing/" . $newname;
+        
+        // $image_path_for_db will contain the relative URL/path stored in the database
+        $image_path_for_db = $newname;
+    
+        // --- 2. FILE UPLOAD ---
+    
+        if (move_uploaded_file($tempname, $folder)) {
+            
+            // --- 3. DATABASE INSERT (Using prepared statement) ---
+            // Target the new 'quill_gallery' table and match the columns:
+            // gallery_image, gallery_title, gallery_description
+            $insert_sql = "INSERT INTO quill_listing (gallery_image, gallery_title, gallery_description) VALUES (?, ?, ?)";
+    
+            $stmt = mysqli_prepare($conn, $insert_sql);
+    
+            if ($stmt === false) {
+                error_log("Failed to prepare statement: " . mysqli_error($conn));
+                $_SESSION['metadata'] = "Error preparing database update.";
+            } else {
+                // Bind parameters: 's' = string (for the three fields)
+                // Binding: (1) image path, (2) title, (3) description
+                mysqli_stmt_bind_param($stmt, "sss", $image_path_for_db, $content_title, $content_description);
+    
+                if (mysqli_stmt_execute($stmt)) {
+                    // Database insert successful
+                    $_SESSION['metadata'] = "Image Info Saved Successfully!";
+                } else {
+                    // Database insert failed
+                    error_log("Failed to execute statement: " . mysqli_stmt_error($stmt));
+                    $_SESSION['metadata'] = "Error saving image info to database.";
+                }
+                mysqli_stmt_close($stmt);
+            }
+            
+        } else {
+            // File upload failed
+            $_SESSION['metadata'] = "Image Not Saved, Check permissions of the 'gallery' folder.";
+        }
+    
+        // --- 4. REDIRECT ---
+        header("Location: quill-photos");
+        exit();
+    }
+
     //HOME PAGE - ADD CAROUSEL IMAGE INFO
     if (isset($_POST['addNewCarousel']) && $_POST['addNewCarousel'] == 1) {
 
