@@ -197,6 +197,8 @@
         ?>
         <div class="dog-gallery-wrapper">
             <div class="dog-hero-shell">
+                <div class="dog-hero-preview dog-hero-preview--left"></div>
+                <div class="dog-hero-preview dog-hero-preview--right"></div>
                 <div id="<?php echo $pswp_gallery_id; ?>" class="pswp-gallery swiper dog-hero-swiper" data-pswp-uid="1">
                     <div class="swiper-wrapper">
                         <?php foreach ($gallery_images as $index => $image):
@@ -233,7 +235,8 @@
                                    data-pswp-caption="<?php echo $image_caption; ?>"
                                    class="dog-hero-slide" 
                                    title="<?php echo $image_caption; ?>"
-                                   style="--prev-image: url('<?php echo htmlspecialchars($prev_preview, ENT_QUOTES); ?>'); --next-image: url('<?php echo htmlspecialchars($next_preview, ENT_QUOTES); ?>');">
+                                   data-preview-prev="<?php echo htmlspecialchars($prev_preview, ENT_QUOTES); ?>"
+                                   data-preview-next="<?php echo htmlspecialchars($next_preview, ENT_QUOTES); ?>">
                                     <img class="dog-hero-img" 
                                         src="<?php echo $image_full_path; ?>" 
                                         alt="Slide <?php echo $index + 1; ?>"
@@ -289,11 +292,44 @@
     box-shadow: 0 25px 45px rgba(15, 23, 42, 0.18);
 }
 
+.dog-hero-preview {
+    position: absolute;
+    top: 10%;
+    bottom: 20%;
+    width: 18%;
+    border-radius: 1.5rem;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: translateY(20px) scale(0.85);
+    filter: blur(1px);
+    transition: opacity 0.35s ease, transform 0.35s ease, background-image 0.2s ease;
+    pointer-events: none;
+    box-shadow: 0 25px 35px rgba(15, 23, 42, 0.18);
+    mix-blend-mode: multiply;
+}
+
+.dog-hero-preview--left {
+    left: 1.25rem;
+    border-bottom-right-radius: 60% 45%;
+}
+
+.dog-hero-preview--right {
+    right: 1.25rem;
+    border-bottom-left-radius: 60% 45%;
+}
+
+.dog-hero-shell--show-previews .dog-hero-preview {
+    opacity: 0.55;
+    transform: translateY(0) scale(0.9);
+}
+
 .dog-hero-swiper {
     width: 100%;
     border-radius: 1.25rem;
     overflow: hidden;
     background: #ffffff;
+    position: relative;
 }
 
 .dog-hero-slide {
@@ -313,42 +349,6 @@
     object-position: center;
     padding: 1.5rem;
     filter: drop-shadow(0 20px 28px rgba(15, 23, 42, 0.20));
-}
-
-.dog-hero-slide::before,
-.dog-hero-slide::after {
-    content: "";
-    position: absolute;
-    top: 12%;
-    bottom: 18%;
-    width: 19%;
-    border-radius: 1.25rem;
-    opacity: 0;
-    background-size: cover;
-    background-position: center;
-    filter: blur(1px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    pointer-events: none;
-    box-shadow: 0 20px 35px rgba(15, 23, 42, 0.15);
-}
-
-.dog-hero-slide::before {
-    left: 1rem;
-    transform: translate(-18px, 12px) scale(0.85);
-    border-bottom-right-radius: 60% 45%;
-    background-image: var(--prev-image);
-}
-
-.dog-hero-slide::after {
-    right: 1rem;
-    transform: translate(18px, 12px) scale(0.85);
-    border-bottom-left-radius: 60% 45%;
-    background-image: var(--next-image);
-}
-
-.swiper-slide-active .dog-hero-slide::before,
-.swiper-slide-active .dog-hero-slide::after {
-    opacity: 0.5;
 }
 
 .dog-hero-caption {
@@ -429,6 +429,10 @@
                     }
                 });
 
+                const heroShell = document.querySelector('#<?php echo $pswp_gallery_id; ?>').closest('.dog-hero-shell');
+                const previewLeft = heroShell.querySelector('.dog-hero-preview--left');
+                const previewRight = heroShell.querySelector('.dog-hero-preview--right');
+
                 const heroSwiper = new Swiper('#<?php echo $pswp_gallery_id; ?>', {
                     spaceBetween: 24,
                     navigation: {
@@ -440,8 +444,38 @@
                         clickable: true,
                     },
                     loop: <?php echo ($total_images > 1 ? 'true' : 'false'); ?>,
-                    thumbs: { swiper: thumbSwiper }
+                    thumbs: { swiper: thumbSwiper },
+                    on: {
+                        init: function(swiper) {
+                            updatePreviews(swiper);
+                        },
+                        slideChangeTransitionEnd: function(swiper) {
+                            updatePreviews(swiper);
+                        }
+                    }
                 });
+
+                function updatePreviews(swiper) {
+                    if (!heroShell || !previewLeft || !previewRight || swiper.slides.length <= 1) {
+                        heroShell && heroShell.classList.remove('dog-hero-shell--show-previews');
+                        return;
+                    }
+                    const activeSlide = swiper.slides[swiper.activeIndex];
+                    if (!activeSlide) return;
+                    const slideLink = activeSlide.querySelector('.dog-hero-slide');
+                    if (!slideLink) return;
+
+                    const prevSrc = slideLink.dataset.previewPrev || '';
+                    const nextSrc = slideLink.dataset.previewNext || '';
+
+                    if (prevSrc && nextSrc) {
+                        heroShell.classList.add('dog-hero-shell--show-previews');
+                        previewLeft.style.backgroundImage = `url('${prevSrc}')`;
+                        previewRight.style.backgroundImage = `url('${nextSrc}')`;
+                    } else {
+                        heroShell.classList.remove('dog-hero-shell--show-previews');
+                    }
+                }
             });
         </script>
 
