@@ -26,6 +26,7 @@
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 
 
         <!-- Customized Bootstrap Stylesheet -->
@@ -190,128 +191,194 @@
     <h2 class="mb-4">Gallery for <?php echo $dog_name; ?></h2>
 
     <?php if ($total_images > 0) : ?>
-        
-        <div id="<?php echo $pswp_gallery_id; ?>" class="pswp-gallery dog-gallery-grid" data-pswp-uid="1">
-            
-            <?php foreach ($gallery_images as $index => $image):
-                $image_filename = htmlspecialchars($image['dog_image_path']);
-                $image_full_path = $image_base_path . $image_filename;
-                $image_caption = $dog_name . " Photo " . ($index + 1);
+        <?php 
+            $hero_swiper_id = 'dogHeroSwiper' . $dog_id;
+            $thumb_swiper_id = 'dogThumbSwiper' . $dog_id;
+        ?>
+        <div class="dog-gallery-wrapper">
+            <div id="<?php echo $pswp_gallery_id; ?>" class="pswp-gallery swiper dog-hero-swiper" data-pswp-uid="1">
+                <div class="swiper-wrapper">
+                    <?php foreach ($gallery_images as $index => $image):
+                        $image_filename = htmlspecialchars($image['dog_image_path']);
+                        $image_full_path = $image_base_path . $image_filename;
+                        $image_caption = $dog_name . " Photo " . ($index + 1);
 
-                $full_width = 1600; 
-                $full_height = 1200; 
+                        $full_width = 1600; 
+                        $full_height = 1200; 
 
-                $image_server_path = __DIR__ . '/' . $image_full_path; 
-                $image_server_path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $image_server_path);
-                
-                if (file_exists($image_server_path)) {
-                    $size = @getimagesize($image_server_path); 
-                    if ($size) {
-                        $full_width = $size[0];
-                        $full_height = $size[1];
-                    }
-                }
-            ?>
-                <figure class="dog-gallery-card">
-                    <a href="<?php echo $image_full_path; ?>" 
-                       data-pswp-width="<?php echo $full_width; ?>"
-                       data-pswp-height="<?php echo $full_height; ?>"
-                       data-pswp-caption="<?php echo $image_caption; ?>"
-                       class="dog-gallery-link" 
-                       title="<?php echo $image_caption; ?>">
+                        $image_server_path = __DIR__ . '/' . $image_full_path; 
+                        $image_server_path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $image_server_path);
                         
-                        <img class="dog-gallery-thumb" 
-                             src="<?php echo $image_full_path; ?>" 
-                             alt="Thumbnail <?php echo $index + 1; ?>"
-                             loading="lazy"
-                             onerror="this.onerror=null;this.src='https://placehold.co/600x450/e0e0e0/555555?text=Image+Error';">
-                        <figcaption class="dog-gallery-caption">
-                            <span><?php echo $image_caption; ?></span>
-                        </figcaption>
-                    </a>
-                </figure>
-            <?php endforeach; ?>
+                        if (file_exists($image_server_path)) {
+                            $size = @getimagesize($image_server_path); 
+                            if ($size) {
+                                $full_width = $size[0];
+                                $full_height = $size[1];
+                            }
+                        }
+                    ?>
+                        <div class="swiper-slide">
+                            <a href="<?php echo $image_full_path; ?>" 
+                               data-pswp-width="<?php echo $full_width; ?>"
+                               data-pswp-height="<?php echo $full_height; ?>"
+                               data-pswp-caption="<?php echo $image_caption; ?>"
+                               class="dog-hero-slide" 
+                               title="<?php echo $image_caption; ?>">
+                                <img class="dog-hero-img" 
+                                    src="<?php echo $image_full_path; ?>" 
+                                    alt="Slide <?php echo $index + 1; ?>"
+                                    loading="lazy"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/1200x800/e0e0e0/555555?text=Image+Error';">
+                            </a>
+                            <div class="dog-hero-caption">
+                                <span><?php echo $image_caption; ?></span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+            <div id="<?php echo $thumb_swiper_id; ?>" class="swiper dog-thumb-swiper mt-4">
+                <div class="swiper-wrapper">
+                    <?php foreach ($gallery_images as $index => $image):
+                        $image_filename = htmlspecialchars($image['dog_image_path']);
+                        $image_full_path = $image_base_path . $image_filename;
+                    ?>
+                        <div class="swiper-slide">
+                            <div class="dog-thumb-card">
+                                <img 
+                                    src="<?php echo $image_full_path; ?>" 
+                                    alt="Thumb <?php echo $index + 1; ?>"
+                                    loading="lazy"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/300x200/e0e0e0/555555?text=Image+Error';">
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
         
         <style>
-.dog-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+.dog-gallery-wrapper {
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
 }
 
-.dog-gallery-card {
-    margin: 0;
-    position: relative;
-    border-radius: 1.25rem;
+.dog-hero-swiper {
+    width: 100%;
+    border-radius: 1.5rem;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(30, 41, 59, 0.15);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    background-color: #0f172a;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    position: relative;
+    padding-bottom: 3rem;
+    box-shadow: 0 35px 60px rgba(15, 23, 42, 0.35);
 }
 
-.dog-gallery-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 55%);
-    pointer-events: none;
+.dog-hero-slide {
+    display: block;
+    position: relative;
 }
 
-.dog-gallery-card:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 30px 45px rgba(15, 23, 42, 0.35);
-}
-
-.dog-gallery-link {
-    display: flex;
-    flex-direction: column;
+.dog-hero-img {
     width: 100%;
-    height: 100%;
-    text-decoration: none;
-    color: inherit;
-}
-
-.dog-gallery-thumb {
-    width: 100%;
-    aspect-ratio: 4 / 3;
+    height: 520px;
     object-fit: cover;
-    transition: transform 0.35s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.dog-gallery-card:hover .dog-gallery-thumb {
-    transform: scale(1.06);
-}
-
-.dog-gallery-caption {
-    padding: 0.9rem 1.25rem;
-    color: #e2e8f0;
-    font-size: 0.95rem;
-    letter-spacing: 0.03em;
+.dog-hero-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1.75rem;
+    background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.85) 100%);
+    color: #f8fafc;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.dog-gallery-caption span {
-    display: inline-block;
     font-weight: 600;
 }
 
-@media (max-width: 576px) {
-    .dog-gallery-grid {
-        gap: 1rem;
+.dog-hero-swiper .swiper-button-next,
+.dog-hero-swiper .swiper-button-prev {
+    color: #f8fafc;
+}
+
+.dog-hero-swiper .swiper-pagination-bullet {
+    background: rgba(248, 250, 252, 0.5);
+}
+
+.dog-hero-swiper .swiper-pagination-bullet-active {
+    background: #f8fafc;
+}
+
+.dog-thumb-swiper {
+    width: 100%;
+    padding: 0.5rem 0;
+}
+
+.dog-thumb-card {
+    width: 100%;
+    height: 120px;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.25);
+}
+
+.dog-thumb-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.dog-thumb-swiper .swiper-slide-thumb-active .dog-thumb-card img {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.35);
+}
+
+@media (max-width: 768px) {
+    .dog-hero-img {
+        height: 320px;
     }
 
-    .dog-gallery-caption {
-        font-size: 0.85rem;
+    .dog-thumb-card {
+        height: 90px;
     }
 }
 </style>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const thumbSwiper = new Swiper('#<?php echo $thumb_swiper_id; ?>', {
+                    spaceBetween: 12,
+                    slidesPerView: 5,
+                    watchSlidesProgress: true,
+                    breakpoints: {
+                        0: { slidesPerView: 3 },
+                        576: { slidesPerView: 4 },
+                        992: { slidesPerView: 6 }
+                    }
+                });
+
+                const heroSwiper = new Swiper('#<?php echo $pswp_gallery_id; ?>', {
+                    spaceBetween: 24,
+                    navigation: {
+                        nextEl: '#<?php echo $pswp_gallery_id; ?> .swiper-button-next',
+                        prevEl: '#<?php echo $pswp_gallery_id; ?> .swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '#<?php echo $pswp_gallery_id; ?> .swiper-pagination',
+                        clickable: true,
+                    },
+                    thumbs: { swiper: thumbSwiper }
+                });
+            });
+        </script>
 
     <?php else : ?>
         <div class="alert alert-warning" role="alert">
