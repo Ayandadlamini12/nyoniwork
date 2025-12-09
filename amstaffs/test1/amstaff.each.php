@@ -217,6 +217,14 @@
                                     $full_height = $size[1];
                                 }
                             }
+
+                            $total_gallery = count($gallery_images);
+                            $prev_index = ($index - 1 + $total_gallery) % $total_gallery;
+                            $next_index = ($index + 1) % $total_gallery;
+                            $prev_filename = htmlspecialchars($gallery_images[$prev_index]['dog_image_path'] ?? '');
+                            $next_filename = htmlspecialchars($gallery_images[$next_index]['dog_image_path'] ?? '');
+                            $prev_preview = !empty($prev_filename) ? $image_base_path . $prev_filename : 'https://placehold.co/400x300/e2e8f0/94a3b8?text=Preview';
+                            $next_preview = !empty($next_filename) ? $image_base_path . $next_filename : 'https://placehold.co/400x300/e2e8f0/94a3b8?text=Preview';
                         ?>
                             <div class="swiper-slide">
                                 <a href="<?php echo $image_full_path; ?>" 
@@ -224,7 +232,8 @@
                                    data-pswp-height="<?php echo $full_height; ?>"
                                    data-pswp-caption="<?php echo $image_caption; ?>"
                                    class="dog-hero-slide" 
-                                   title="<?php echo $image_caption; ?>">
+                                   title="<?php echo $image_caption; ?>"
+                                   style="--prev-image: url('<?php echo htmlspecialchars($prev_preview, ENT_QUOTES); ?>'); --next-image: url('<?php echo htmlspecialchars($next_preview, ENT_QUOTES); ?>');">
                                     <img class="dog-hero-img" 
                                         src="<?php echo $image_full_path; ?>" 
                                         alt="Slide <?php echo $index + 1; ?>"
@@ -275,31 +284,16 @@
     width: 100%;
     border-radius: 1.5rem;
     background: linear-gradient(135deg, #f8fafc, #edf2f7);
-    padding: 2.5rem 1.5rem 4rem;
+    padding: 2rem 1.25rem 3.5rem;
     position: relative;
     box-shadow: 0 25px 45px rgba(15, 23, 42, 0.18);
 }
 
 .dog-hero-swiper {
     width: 100%;
-    overflow: visible;
-}
-
-.dog-hero-swiper .swiper-slide {
-    width: 78%;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    opacity: 0.55;
-}
-
-.dog-hero-swiper .swiper-slide-next,
-.dog-hero-swiper .swiper-slide-prev {
-    opacity: 0.85;
-    transform: scale(0.92);
-}
-
-.dog-hero-swiper .swiper-slide-active {
-    transform: scale(1);
-    opacity: 1;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    background: #ffffff;
 }
 
 .dog-hero-slide {
@@ -319,6 +313,40 @@
     object-position: center;
     padding: 1.5rem;
     filter: drop-shadow(0 20px 28px rgba(15, 23, 42, 0.20));
+}
+
+.dog-hero-slide::before,
+.dog-hero-slide::after {
+    content: "";
+    position: absolute;
+    top: 12%;
+    bottom: 18%;
+    width: 22%;
+    border-radius: 1.25rem;
+    opacity: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(1px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+    box-shadow: 0 20px 35px rgba(15, 23, 42, 0.15);
+}
+
+.dog-hero-slide::before {
+    left: 1rem;
+    transform: translateX(-8px) scale(0.92);
+    background-image: var(--prev-image);
+}
+
+.dog-hero-slide::after {
+    right: 1rem;
+    transform: translateX(8px) scale(0.92);
+    background-image: var(--next-image);
+}
+
+.swiper-slide-active .dog-hero-slide::before,
+.swiper-slide-active .dog-hero-slide::after {
+    opacity: 0.85;
 }
 
 .dog-hero-caption {
@@ -400,18 +428,7 @@
                 });
 
                 const heroSwiper = new Swiper('#<?php echo $pswp_gallery_id; ?>', {
-                    spaceBetween: 36,
-                    centeredSlides: true,
-                    slidesPerView: 'auto',
-                    loop: <?php echo ($total_images > 2 ? 'true' : 'false'); ?>,
-                    effect: 'coverflow',
-                    coverflowEffect: {
-                        rotate: 0,
-                        stretch: 0,
-                        depth: 220,
-                        modifier: 1,
-                        slideShadows: false
-                    },
+                    spaceBetween: 24,
                     navigation: {
                         nextEl: '#<?php echo $pswp_gallery_id; ?> .swiper-button-next',
                         prevEl: '#<?php echo $pswp_gallery_id; ?> .swiper-button-prev',
@@ -420,6 +437,7 @@
                         el: '#<?php echo $pswp_gallery_id; ?> .swiper-pagination',
                         clickable: true,
                     },
+                    loop: <?php echo ($total_images > 1 ? 'true' : 'false'); ?>,
                     thumbs: { swiper: thumbSwiper }
                 });
             });
