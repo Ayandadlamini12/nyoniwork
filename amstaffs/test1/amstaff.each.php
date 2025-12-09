@@ -201,7 +201,8 @@
                 $full_width = 1600; 
                 $full_height = 1200; 
 
-                $image_server_path = __DIR__ . '/../../../' . $image_full_path; 
+                $image_server_path = __DIR__ . '/' . $image_full_path; 
+                $image_server_path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $image_server_path);
                 
                 if (file_exists($image_server_path)) {
                     $size = @getimagesize($image_server_path); 
