@@ -336,7 +336,7 @@
     display: flex;
     position: relative;
     min-height: 420px;
-    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.85), rgba(4, 12, 30, 0.95));
+    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.7), rgba(4, 12, 30, 0.85));
     justify-content: center;
     align-items: center;
 }
