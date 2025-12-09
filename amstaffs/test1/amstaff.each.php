@@ -286,10 +286,10 @@
 .dog-hero-shell {
     width: 100%;
     border-radius: 1.5rem;
-    background: linear-gradient(135deg, #fff6d8, #fde58c);
+    background: linear-gradient(135deg, #f8fafc, #edf2f7);
     padding: 2rem 1.25rem 3.5rem;
     position: relative;
-    box-shadow: 0 25px 45px rgba(124, 92, 5, 0.25);
+    box-shadow: 0 25px 45px rgba(15, 23, 42, 0.18);
 }
 
 .dog-hero-preview {
@@ -305,8 +305,8 @@
     filter: blur(1px);
     transition: opacity 0.35s ease, transform 0.35s ease, background-image 0.2s ease;
     pointer-events: none;
-    box-shadow: 0 25px 35px rgba(124, 92, 5, 0.25);
-    background-color: rgba(255, 235, 164, 0.6);
+    box-shadow: 0 25px 35px rgba(15, 23, 42, 0.18);
+    mix-blend-mode: multiply;
 }
 
 .dog-hero-preview--left {
@@ -328,7 +328,7 @@
     width: 100%;
     border-radius: 1.25rem;
     overflow: hidden;
-    background: #fffaf0;
+    background: #ffffff;
     position: relative;
 }
 
@@ -336,7 +336,7 @@
     display: flex;
     position: relative;
     min-height: 420px;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.8), rgba(251, 228, 173, 0.55));
+    background: radial-gradient(circle at center, rgba(255,255,255,0.65), rgba(226, 232, 240, 0.45));
     justify-content: center;
     align-items: center;
 }
@@ -348,7 +348,7 @@
     object-fit: contain;
     object-position: center;
     padding: 1.5rem;
-    filter: drop-shadow(0 20px 28px rgba(110, 80, 4, 0.25));
+    filter: drop-shadow(0 20px 28px rgba(15, 23, 42, 0.20));
 }
 
 .dog-hero-caption {
