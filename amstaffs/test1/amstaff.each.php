@@ -321,7 +321,7 @@
     position: absolute;
     top: 12%;
     bottom: 18%;
-    width: 22%;
+    width: 19%;
     border-radius: 1.25rem;
     opacity: 0;
     background-size: cover;
@@ -334,19 +334,21 @@
 
 .dog-hero-slide::before {
     left: 1rem;
-    transform: translateX(-8px) scale(0.92);
+    transform: translate(-18px, 12px) scale(0.85);
+    border-bottom-right-radius: 60% 45%;
     background-image: var(--prev-image);
 }
 
 .dog-hero-slide::after {
     right: 1rem;
-    transform: translateX(8px) scale(0.92);
+    transform: translate(18px, 12px) scale(0.85);
+    border-bottom-left-radius: 60% 45%;
     background-image: var(--next-image);
 }
 
 .swiper-slide-active .dog-hero-slide::before,
 .swiper-slide-active .dog-hero-slide::after {
-    opacity: 0.85;
+    opacity: 0.5;
 }
 
 .dog-hero-caption {
