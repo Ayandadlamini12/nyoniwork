@@ -279,14 +279,22 @@
 }
 
 .dog-hero-slide {
-    display: block;
+    display: flex;
     position: relative;
+    min-height: 420px;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 65%);
+    justify-content: center;
+    align-items: center;
 }
 
 .dog-hero-img {
     width: 100%;
-    height: 520px;
-    object-fit: cover;
+    height: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    object-position: center;
+    padding: 1.5rem;
+    filter: drop-shadow(0 25px 35px rgba(15, 23, 42, 0.35));
 }
 
 .dog-hero-caption {
@@ -332,12 +340,14 @@
 .dog-thumb-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.3s ease;
+    background: rgba(15, 23, 42, 0.65);
+    padding: 0.5rem;
 }
 
 .dog-thumb-swiper .swiper-slide-thumb-active .dog-thumb-card img {
-    transform: scale(1.05);
+    transform: scale(1.08);
     box-shadow: 0 15px 30px rgba(15, 23, 42, 0.35);
 }
 
