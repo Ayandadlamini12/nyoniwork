@@ -272,17 +272,17 @@
     width: 100%;
     border-radius: 1.5rem;
     overflow: hidden;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(135deg, #f8fafc, #edf2f7);
     position: relative;
     padding-bottom: 3rem;
-    box-shadow: 0 35px 60px rgba(15, 23, 42, 0.35);
+    box-shadow: 0 25px 45px rgba(15, 23, 42, 0.18);
 }
 
 .dog-hero-slide {
     display: flex;
     position: relative;
     min-height: 420px;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 65%);
+    background: radial-gradient(circle at center, rgba(255,255,255,0.65), rgba(226, 232, 240, 0.45));
     justify-content: center;
     align-items: center;
 }
@@ -294,7 +294,7 @@
     object-fit: contain;
     object-position: center;
     padding: 1.5rem;
-    filter: drop-shadow(0 25px 35px rgba(15, 23, 42, 0.35));
+    filter: drop-shadow(0 20px 28px rgba(15, 23, 42, 0.20));
 }
 
 .dog-hero-caption {
@@ -334,7 +334,8 @@
     border-radius: 1rem;
     overflow: hidden;
     position: relative;
-    box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.25);
+    background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
 }
 
 .dog-thumb-card img {
@@ -342,7 +343,6 @@
     height: 100%;
     object-fit: contain;
     transition: transform 0.3s ease;
-    background: rgba(15, 23, 42, 0.65);
     padding: 0.5rem;
 }
 
