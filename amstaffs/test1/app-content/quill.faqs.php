@@ -1,6 +1,53 @@
     <!-- SECTION HEADERS PAGE -->
     <div class="tab-pane fade " id="account-vertical-faqs" role="tabpanel" aria-labelledby="account-pill-faqs" aria-expanded="false">
 
+    <style>
+        .custom-accordion .card {
+            background: linear-gradient(135deg, #0f172a, #1f2937);
+            color: #f8fafc;
+            border-radius: 1rem !important;
+            border: none;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+            overflow: hidden;
+        }
+        .custom-accordion .card-header {
+            background: rgba(15, 23, 42, 0.65);
+            border: none;
+            padding: 0;
+        }
+        .custom-accordion .card-header a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            color: #f8fafc;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+        .custom-accordion .card-header a.collapsed {
+            background: rgba(15, 23, 42, 0.35);
+            color: #cbd5f5;
+        }
+        .custom-accordion .card-header a:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+        .custom-accordion .card-header .feather {
+            margin-left: 0.75rem;
+            opacity: 0.75;
+        }
+        .custom-accordion .card-content {
+            background: rgba(15, 23, 42, 0.85);
+            color: #e2e8f0;
+            padding: 1.25rem 1.5rem;
+        }
+        .custom-accordion .card-title {
+            margin-bottom: 0;
+        }
+    </style>
+
     <h4 class="form-section"><i class="fa fa-media"></i> FAQs</h4>
     <div class="row mb-4">
     <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
@@ -102,7 +149,7 @@
                         </div>
                     <?php else: ?>
                         <!-- Outer Accordion Wrapper -->
-                        <div id="accordionWrap1" role="tablist" aria-multiselectable="true">
+                        <div id="accordionWrap1" class="custom-accordion" role="tablist" aria-multiselectable="true">
                             <?php foreach ($faqs as $item): 
                                 $faq_id = htmlspecialchars($item['id']);
                                 $question = htmlspecialchars($item['faq_question']);
